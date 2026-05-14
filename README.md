@@ -2,12 +2,24 @@
 
 Clone exato da pagina XQuiz, servido por um proxy Node.js para manter o mesmo HTML, design, etapas do quiz, botoes, imagens e provas sociais.
 
+## Link online
+
+```text
+https://monjaurodepobre.vercel.app/
+```
+
+No Windows, abra:
+
+```text
+ABRIR-SITE-ONLINE.cmd
+```
+
 ## Rodar localmente
 
 No Windows, abra:
 
 ```text
-ABRIR-CLONE-EXATO.bat
+RESETAR-E-ABRIR.cmd
 ```
 
 Ou pelo terminal:
@@ -19,7 +31,7 @@ npm start
 Depois acesse:
 
 ```text
-http://localhost:8080/?utm_source=instagram&utm_campaign=bio
+http://localhost:8090/?utm_source=instagram&utm_campaign=bio
 ```
 
 ## Publicar online
