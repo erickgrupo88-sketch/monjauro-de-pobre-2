@@ -6,6 +6,12 @@ const ROOT = path.join(__dirname, '..');
 const ORIGIN = 'https://0j386c07.xquiz.io';
 const CDN = 'https://cdn.xquiz.co';
 
+function publicBaseUrl(req) {
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  const host = req.headers['x-forwarded-host'] || req.headers.host || 'monjaurodepobre.vercel.app';
+  return `${proto}://${host}`;
+}
+
 function send(res, status, headers, body) {
   res.writeHead(status, headers);
   res.end(body);
@@ -41,7 +47,7 @@ async function proxy(req, res, base, pathname) {
     let body = Buffer.from(await upstream.arrayBuffer());
     let contentType = upstream.headers.get('content-type') || 'application/octet-stream';
     if (base === ORIGIN && contentType.includes('javascript')) {
-      body = Buffer.from(body.toString('utf8').replaceAll('https://cdn.xquiz.co', ''), 'utf8');
+      body = Buffer.from(body.toString('utf8').replaceAll(CDN, publicBaseUrl(req)), 'utf8');
       contentType = 'text/javascript; charset=utf-8';
     }
     send(res, upstream.status, {
