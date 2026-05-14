@@ -5,6 +5,7 @@ const { URL } = require('url');
 const ROOT = path.join(__dirname, '..');
 const ORIGIN = 'https://0j386c07.xquiz.io';
 const CDN = 'https://cdn.xquiz.co';
+const ASSET_VERSION = 'cdnurl-941ca67';
 
 function publicBaseUrl(req) {
   const proto = req.headers['x-forwarded-proto'] || 'https';
@@ -50,9 +51,12 @@ async function proxy(req, res, base, pathname) {
       body = Buffer.from(body.toString('utf8').replaceAll(CDN, publicBaseUrl(req)), 'utf8');
       contentType = 'text/javascript; charset=utf-8';
     }
+    const cacheControl = contentType.includes('javascript') || contentType.includes('text/css')
+      ? 'no-store'
+      : 'public, max-age=3600';
     send(res, upstream.status, {
       'content-type': contentType,
-      'cache-control': 'public, max-age=3600',
+      'cache-control': cacheControl,
       'access-control-allow-origin': '*'
     }, body);
   } catch (err) {
@@ -76,9 +80,10 @@ module.exports = async function handler(req, res) {
     if (err) {
       return send(res, 404, { 'content-type': 'text/plain; charset=utf-8' }, 'index.html nao encontrado');
     }
+    const cacheSafeHtml = html.replace(/(\?dpl=dpl_7Euffagr6AeeijA3Xkz5Wb6YiHHq)(?!&asset_fix=)/g, `$1&asset_fix=${ASSET_VERSION}`);
     send(res, 200, {
       'content-type': 'text/html; charset=utf-8',
       'cache-control': 'no-store'
-    }, html);
+    }, cacheSafeHtml);
   });
 };
