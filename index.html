@@ -45,32 +45,6 @@
   setInterval(patchSocialProof, 800);
   new MutationObserver(patchSocialProof).observe(document.documentElement, { childList: true, subtree: true });
 })();
-</script><noscript><style>.mp-fallback{display:flex!important}</style><div class="mp-fallback"><div class="mp-card"><img class="mp-logo" src="/images/de9a1378-c7fe-4fc1-86bd-85408166e42c" alt="Mounjaro de Pobre"><div class="mp-progress"><span></span></div><h1>Qual o <strong>corpo</strong> dos seus sonhos?</h1><p>Escolha a opção abaixo:</p><div class="mp-grid"><a href="/?utm_source=instagram&utm_campaign=bio"><img src="/images/06d4f35d-db3e-49f8-9b05-caafe53e6f7e"><span>Em Forma</span></a><a href="/?utm_source=instagram&utm_campaign=bio"><img src="/images/34394ff2-92e7-4da3-a4e8-157804d91ca6"><span>Natural</span></a></div></div></div></noscript><style id="mp-fallback-style">.mp-fallback{position:fixed;inset:0;z-index:999999;display:none;align-items:flex-start;justify-content:center;overflow:auto;background:#fff;color:#111827;font-family:Inter,Arial,sans-serif;padding:28px 20px}.mp-card{width:100%;max-width:512px;text-align:center}.mp-logo{width:160px;height:160px;object-fit:contain;margin:0 auto 20px}.mp-progress{height:12px;background:#e5e7eb;border-radius:999px;margin:0 0 28px;overflow:hidden}.mp-progress span{display:block;width:95%;height:100%;background:#16a34a;border-radius:999px}.mp-card h1{font-size:28px;line-height:1.15;margin:0 0 12px;font-weight:800}.mp-card h1 strong{color:#00b647}.mp-card p{font-size:16px;margin:0 0 20px;text-decoration:underline;color:#111827}.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.mp-grid a{display:block;border:1px solid #e5e7eb;border-radius:8px;background:#fff;text-decoration:none;color:#111827;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}.mp-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}.mp-grid span{display:block;padding:12px 8px;font-weight:700;font-size:16px}@media(max-width:420px){.mp-card h1{font-size:24px}.mp-logo{width:132px;height:132px}.mp-grid{gap:10px}}</style><script>
-(function () {
-  function hasRenderedQuiz() {
-    var main = document.querySelector('main');
-    return main && main.children && main.children.length > 0 && main.innerText.trim().length > 20;
-  }
-
-  function showFallback() {
-    if (hasRenderedQuiz() || document.querySelector('.mp-fallback')) return;
-    var fallback = document.createElement('div');
-    fallback.className = 'mp-fallback';
-    fallback.innerHTML = '<div class="mp-card"><img class="mp-logo" src="/images/de9a1378-c7fe-4fc1-86bd-85408166e42c" alt="Mounjaro de Pobre"><div class="mp-progress"><span></span></div><h1>Qual o <strong>corpo</strong> dos seus sonhos?</h1><p>Escolha a opção abaixo:</p><div class="mp-grid"><a href="/?utm_source=instagram&utm_campaign=bio&fallback=1"><img src="/images/06d4f35d-db3e-49f8-9b05-caafe53e6f7e" alt=""><span>Em Forma</span></a><a href="/?utm_source=instagram&utm_campaign=bio&fallback=1"><img src="/images/34394ff2-92e7-4da3-a4e8-157804d91ca6" alt=""><span>Natural</span></a></div></div>';
-    document.body.appendChild(fallback);
-    fallback.style.display = 'flex';
-  }
-
-  function removeFallbackWhenReady() {
-    if (!hasRenderedQuiz()) return;
-    document.querySelectorAll('.mp-fallback').forEach(function (node) {
-      node.remove();
-    });
-  }
-
-  setTimeout(showFallback, 3500);
-  setInterval(removeFallbackWhenReady, 600);
-})();
 </script></body></html>
 
 
