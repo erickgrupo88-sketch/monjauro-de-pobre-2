@@ -15,6 +15,22 @@ function send(res, status, headers, body) {
 
 async function proxy(req, res, base, pathname) {
   try {
+    const localImagePrefix = '/images/local/';
+    if (base === CDN && pathname.startsWith(localImagePrefix)) {
+      const fileName = path.basename(pathname);
+      const localPath = path.join(ROOT, 'assets', 'provas-sociais', fileName);
+      return fs.readFile(localPath, (err, body) => {
+        if (err) {
+          return send(res, 404, { 'content-type': 'text/plain; charset=utf-8' }, 'Imagem local nao encontrada');
+        }
+        send(res, 200, {
+          'content-type': 'image/png',
+          'cache-control': 'public, max-age=3600',
+          'access-control-allow-origin': '*'
+        }, body);
+      });
+    }
+
     const target = new URL(pathname + (req.url.includes('?') ? '?' + req.url.split('?').slice(1).join('?') : ''), base);
     const upstream = await fetch(target, {
       headers: {
@@ -23,9 +39,14 @@ async function proxy(req, res, base, pathname) {
         'referer': ORIGIN + '/',
       }
     });
-    const body = Buffer.from(await upstream.arrayBuffer());
+    let body = Buffer.from(await upstream.arrayBuffer());
+    let contentType = upstream.headers.get('content-type') || 'application/octet-stream';
+    if (base === ORIGIN && contentType.includes('javascript')) {
+      body = Buffer.from(body.toString('utf8').replaceAll('https://cdn.xquiz.co', ''), 'utf8');
+      contentType = 'text/javascript; charset=utf-8';
+    }
     const headers = {
-      'content-type': upstream.headers.get('content-type') || 'application/octet-stream',
+      'content-type': contentType,
       'cache-control': 'public, max-age=3600',
       'access-control-allow-origin': '*'
     };
