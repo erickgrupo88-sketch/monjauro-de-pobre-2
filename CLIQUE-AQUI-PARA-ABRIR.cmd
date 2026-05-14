@@ -4,7 +4,7 @@ title Abrir Clone Mounjaro de Pobre
 
 set "PROJECT_DIR=%~dp0"
 set "NODE_EXE=C:\Users\erick\AppData\Local\OpenAI\Codex\bin\node.exe"
-set "URL=http://localhost:8080/?utm_source=instagram&utm_campaign=bio"
+set "URL=http://localhost:8090/?utm_source=instagram&utm_campaign=bio"
 
 cd /d "%PROJECT_DIR%"
 
@@ -33,6 +33,7 @@ echo Pasta: %PROJECT_DIR%
 echo URL:   %URL%
 echo.
 
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":8090" ^| findstr "LISTENING"') do taskkill /PID %%a /F >nul 2>nul
 start "Servidor Mounjaro" cmd /k ""%NODE_EXE%" "%PROJECT_DIR%server.js""
 timeout /t 3 /nobreak >nul
 start "" "%URL%"

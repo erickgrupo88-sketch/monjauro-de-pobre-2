@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { URL } = require('url');
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8090;
 const ROOT = __dirname;
 const ORIGIN = 'https://0j386c07.xquiz.io';
 const CDN = 'https://cdn.xquiz.co';
@@ -57,7 +57,7 @@ async function proxy(req, res, base, pathname) {
 }
 
 const server = http.createServer(async (req, res) => {
-  const parsed = new URL(req.url, 'http://localhost:8080');
+  const parsed = new URL(req.url, `http://localhost:${PORT}`);
   const pathname = decodeURIComponent(parsed.pathname);
 
   if (pathname.startsWith('/_next/')) return proxy(req, res, ORIGIN, pathname);
