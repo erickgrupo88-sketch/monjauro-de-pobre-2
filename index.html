@@ -62,7 +62,6 @@
   }
 
   function removeFallbackWhenReady() {
-    if (window.__mpFallbackInteracted) return;
     if (!hasRenderedQuiz()) return;
     document.querySelectorAll('.mp-fallback').forEach(function (node) {
       node.remove();
@@ -71,63 +70,6 @@
 
   setTimeout(showFallback, 150);
   setInterval(removeFallbackWhenReady, 600);
-})();
-</script><script>
-(function () {
-  var step = 0;
-  var steps = [
-    {
-      title: 'Quantos copos de agua voce bebe por dia?',
-      subtitle: 'Escolha a opcao abaixo:',
-      options: ['1 a 2 copos', '3 a 4 copos', '5 a 6 copos', 'Mais de 6 copos']
-    },
-    {
-      title: 'Qual seu maior objetivo?',
-      subtitle: 'Selecione o que mais combina com voce:',
-      options: ['Perder barriga', 'Emagrecer rapido', 'Diminuir ansiedade', 'Ter mais energia']
-    },
-    {
-      title: 'Como esta sua rotina hoje?',
-      subtitle: 'Escolha uma opcao:',
-      options: ['Muito corrida', 'Pouco tempo livre', 'Consigo me organizar', 'Quero algo simples']
-    },
-    {
-      title: 'Seu plano esta quase pronto',
-      subtitle: 'Com base nas suas respostas, preparamos uma recomendacao personalizada.',
-      options: ['Ver meu plano']
-    }
-  ];
-
-  function renderFallbackStep() {
-    var card = document.querySelector('.mp-fallback .mp-card');
-    if (!card) return;
-    var data = steps[Math.min(step, steps.length - 1)];
-    var progress = Math.min(95, 25 + step * 22);
-    card.innerHTML = '<img class="mp-logo" src="/images/de9a1378-c7fe-4fc1-86bd-85408166e42c" alt="Mounjaro de Pobre"><div class="mp-progress"><span style="width:' + progress + '%"></span></div><h1>' + data.title + '</h1><p>' + data.subtitle + '</p><div class="mp-options">' + data.options.map(function (option) { return '<button type="button" data-mp-next="1">' + option + '</button>'; }).join('') + '</div>';
-  }
-
-  function renderFallbackResult() {
-    var card = document.querySelector('.mp-fallback .mp-card');
-    if (!card) return;
-    card.innerHTML = '<img class="mp-logo" src="/images/de9a1378-c7fe-4fc1-86bd-85408166e42c" alt="Mounjaro de Pobre"><div class="mp-progress"><span style="width:100%"></span></div><h1>Seu plano personalizado esta pronto</h1><p>Com base nas suas respostas, o protocolo recomendado foi liberado para voce.</p><div class="mp-options"><button type="button">Continuar</button></div>';
-  }
-
-  document.addEventListener('click', function (event) {
-    var target = event.target.closest('.mp-fallback a, .mp-fallback button');
-    if (!target) return;
-    event.preventDefault();
-    window.__mpFallbackInteracted = true;
-    if (step < steps.length - 1) {
-      step += 1;
-      renderFallbackStep();
-      return;
-    }
-    renderFallbackResult();
-  });
-
-  var style = document.createElement('style');
-  style.textContent = '.mp-options{display:grid;gap:12px}.mp-options button{width:100%;border:1px solid #d1d5db;border-radius:8px;background:#fff;color:#111827;padding:15px 16px;font-size:16px;font-weight:700;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.07)}.mp-options button:active{transform:scale(.99)}';
-  document.head.appendChild(style);
 })();
 </script></body></html>
 
